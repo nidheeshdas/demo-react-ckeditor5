@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
-import CKEditor from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor";
-import MathType from "@wiris/ckeditor5-mathtype";
+import CKEditor from '@ckeditor/ckeditor5-react';
 
+// NOTE: Use the editor from source (not a build)!
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+
+import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
+import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
+import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
+import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
+import MathType from "@wiris/ckeditor5-mathtype";
 import logo from './logo.svg';
 import './App.css';
+
+const editorConfiguration = {
+	plugins: [ Essentials, Bold, Italic, Paragraph,MathType ],
+	toolbar: [ 'bold', 'italic', "MathType", "ChemType" ]
+};
+
 
 function App() {
     return (
@@ -14,10 +26,7 @@ function App() {
             <h2>Using CKEditor 5 build in React</h2>
             <CKEditor
               editor={ClassicEditor}
-              config={{
-                plugins: [MathType],
-                toolbar: ["MathType", "ChemType"]
-              }}
+              config={editorConfiguration}
               data="<p>Hello from CKEditor 5!</p>"
               onInit={editor => {
                 // You can store the "editor" and use when it is needed.
